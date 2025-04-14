@@ -1,0 +1,35 @@
+name: Test & Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test-build:
+    name: Test
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.19.1'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Run build
+      run: npm run build
